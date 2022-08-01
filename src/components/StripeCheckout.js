@@ -17,7 +17,7 @@ const CheckoutForm = () => {
   const {myUser}=useUserContext();
 
   const [succeeded,setSucceeded]=useState(false)
-  const [error,setError]=useState(null);
+ 
   const [processing,setProcessing]=useState('');
   const [disabled,setDisabled]=useState(true)
   const [clientSecret,setClientSecret]=useState('');
@@ -59,11 +59,11 @@ const CheckoutForm = () => {
 
   useEffect(()=>{
     createPaymentIntent()
-  },[])
+  })
 
   const handleChange=async (event)=>{
     setDisabled(event.empty);
-    setError(event.error? event.error.message:'')
+ 
   }
 
   const handleSubmit=async(ev)=>{
@@ -76,10 +76,9 @@ const CheckoutForm = () => {
     })
 
     if(payload.error){
-      setError(`Payment failed ${payload.error.message}`)
+  
       setProcessing(false)
     }else{
-      setError(null)
       setProcessing(false)
       setSucceeded(true)
       setTimeout(()=>{
